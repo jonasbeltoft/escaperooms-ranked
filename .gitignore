@@ -152,3 +152,4 @@ gcloud.json
 keys.json
 
 supabase-services/volumes/db/data/
+.env*.local

@@ -35,7 +35,7 @@ export function HeroSection() {
                     </Button>
                 </Link>
                 <p className="text-sm text-gray-600 mt-8 font-medium">
-                    Over 500+ rooms and 50,000+ reviews from the escape room community
+                    Over 500+ rooms and 50,000+ reviews from the escrr community
                 </p>
             </div>
         </section>

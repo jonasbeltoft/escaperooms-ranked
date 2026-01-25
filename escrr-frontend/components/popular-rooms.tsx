@@ -114,7 +114,7 @@ export function PopularRooms() {
     };
 
     return (
-        <section id="rooms" className="bg-secondary-background py-14 sm:py-18 border-b-4 border-black scroll-mt-12 sm:scroll-mt-16">
+        <section id="rooms" className="bg-secondary-background py-14 sm:py-18 border-b-4 border-black scroll-mt-16">
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center gap-6 mb-12">
                     <h2 className="text-4xl sm:text-5xl font-black">

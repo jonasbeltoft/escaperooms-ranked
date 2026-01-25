@@ -1,6 +1,6 @@
 'use client';
 
-import { SignedIn, SignedOut, SignInButton, SignUpButton, UserButton, useUser } from "@clerk/nextjs";
+import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
@@ -15,7 +15,9 @@ export function Header() {
 
                     <div className="flex items-center gap-4">
                         <SignedIn>
-                            <UserButton />
+                            <Button variant="default" size="icon">
+                                <UserButton />
+                            </Button>
                         </SignedIn>
                         <SignedOut>
                             <div className="flex gap-3">

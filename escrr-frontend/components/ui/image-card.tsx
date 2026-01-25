@@ -12,11 +12,9 @@ export default function ImageCard({ imageUrl, caption, className }: Props) {
     const [imageFailed, setImageFailed] = useState(false)
 
     const handleImageLoad = useCallback(() => {
-        console.log("Image loaded successfully:", imageUrl)
     }, [imageUrl])
 
     const handleImageError = useCallback(() => {
-        console.log("Image failed to load:", imageUrl)
         setImageFailed(true)
     }, [imageUrl])
 

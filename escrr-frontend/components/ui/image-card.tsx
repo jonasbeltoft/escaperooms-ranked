@@ -3,16 +3,14 @@ import Image from "next/image"
 import { cn } from "@/lib/utils"
 
 type Props = {
-    imageUrl: string
+    imageUrl?: string
     caption: ReactNode
     className?: string
 }
 
 export default function ImageCard({ imageUrl, caption, className }: Props) {
     const [imageFailed, setImageFailed] = useState(false)
-
-    const handleImageLoad = useCallback(() => {
-    }, [imageUrl])
+    const [isImageLoaded, setIsImageLoaded] = useState(false)
 
     const handleImageError = useCallback(() => {
         setImageFailed(true)
@@ -21,27 +19,28 @@ export default function ImageCard({ imageUrl, caption, className }: Props) {
     return (
         <figure
             className={cn(
-                "w-62.5 overflow-hidden rounded-base border-2 border-border bg-main font-base shadow-shadow",
+                "w-62.5 overflow-hidden rounded-base border-2 border-border bg-gray-100 font-base shadow-shadow",
                 className,
             )}
         >
             {imageFailed ? (
-                <div className="w-full aspect-4/3 bg-gray-100 flex items-center justify-center border-b-2 border-border">
+                <div className="w-full aspect-4/3 bg-gray-100 flex items-center justify-center border-border">
                     <span className="text-gray-500 font-bold text-center px-4">No image available</span>
                 </div>
             ) : (
                 <Image
-                    className="w-full h-auto"
-                    src={imageUrl}
+                    className={`w-full h-auto transition-opacity duration-100 ease-out ${isImageLoaded ? "opacity-100" : " opacity-0"}`}
+                    src={imageUrl ? imageUrl : ""}
                     alt="image"
+                    loading="lazy"
                     width={250}
                     height={188}
-                    onAbort={handleImageError}
-                    onLoad={handleImageLoad}
+                    onLoad={() => setIsImageLoaded(true)}
                     onError={handleImageError}
+                    onAbort={handleImageError}
                 />
             )}
-            <figcaption className="border-t-2 border-border p-4 text-foreground">
+            <figcaption className="border-t-4 bg-main border-border p-4 text-foreground">
                 {caption}
             </figcaption>
         </figure>

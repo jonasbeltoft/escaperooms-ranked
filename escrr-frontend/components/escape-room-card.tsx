@@ -25,7 +25,7 @@ export function EscapeRoomCard({
 }: EscapeRoomCardProps) {
     const cardContent = (
         <div className="flex flex-col gap-3">
-            <h3 className="font-black text-lg">{name}</h3>
+            <h3 className="font-black text-lg underline">{name}</h3>
             <div className="space-y-2">
                 <div className="flex items-center gap-2 text-sm">
                     <MapPin size={16} className="shrink-0" />
@@ -65,18 +65,10 @@ export function EscapeRoomCard({
     );
 
     return (
-        <div>
-            {imageUrl ? (
-                <ImageCard
-                    imageUrl={imageUrl}
-                    caption={cardContent}
-                    className="w-full"
-                />
-            ) : (
-                <div className="w-full rounded-base border-2 border-border bg-gray-100 shadow-shadow aspect-4/3 flex items-center justify-center">
-                    <span className="text-gray-500 font-bold text-center px-4">No image available</span>
-                </div>
-            )}
-        </div>
+        <ImageCard
+            imageUrl={imageUrl}
+            caption={cardContent}
+            className="w-full"
+        />
     );
 }

@@ -8,7 +8,7 @@ const dm_sans = DM_Sans({ subsets: ['latin'], variable: '--font-sans' });
 
 export const metadata: Metadata = {
     title: "ESCRR - Escape Rooms Ranked",
-    description: "Discover and review real-world escape rooms",
+    description: "Discover and review escape rooms world wide on ESCRR - your escape room community platform.",
 };
 
 export default function RootLayout({

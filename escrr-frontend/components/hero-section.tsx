@@ -29,7 +29,7 @@ export function HeroSection() {
                 </p>
 
                 {/* Find Rooms CTA */}
-                <Link href="#rooms">
+                <Link href="#rooms" tabIndex={-1}>
                     <Button variant="default" size="lg" className="text-2xl px-12 py-8 font-bold h-auto">
                         EXPLORE ROOMS
                     </Button>

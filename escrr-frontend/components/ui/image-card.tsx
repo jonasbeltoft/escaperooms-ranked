@@ -6,9 +6,10 @@ type Props = {
     imageUrl?: string
     caption: ReactNode
     className?: string
+    variant?: 'default' | 'reverse'
 }
 
-export default function ImageCard({ imageUrl, caption, className }: Props) {
+export default function ImageCard({ imageUrl, caption, className, variant = 'default' }: Props) {
     const [imageFailed, setImageFailed] = useState(false)
     const [isImageLoaded, setIsImageLoaded] = useState(false)
 
@@ -19,7 +20,8 @@ export default function ImageCard({ imageUrl, caption, className }: Props) {
     return (
         <figure
             className={cn(
-                "w-62.5 overflow-hidden rounded-base border-2 border-border bg-gray-100 font-base shadow-shadow",
+                "w-62.5 overflow-hidden rounded-base border-2 border-border bg-gray-100 font-base",
+                variant === 'reverse' ? '' : 'shadow-shadow',
                 className,
             )}
         >

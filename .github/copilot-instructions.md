@@ -22,7 +22,10 @@ The platform enables users to discover, register, and review real-world escape r
 * shadcn/ui component library #fetch https://ui.shadcn.com/docs/components should always be used as the base component library for new components
   * ALWAYS try to use neobrutalism from #fetch https://www.neobrutalism.dev/ and conform to using neobrutalism styling and methodology.
     * The command to add a new component from shadcn/ui is therefore also changed from `bunx --bun shadcn@latest add accordion` to `bunx --bun shadcn@latest add https://neobrutalism.dev/r/accordion.json` for example.
-* Icons from lucide-react #fetch https://lucide.dev/ NEVER use emojis in the UI code, use icons from lucide-react instead.
+* Icons from lucide-react #fetch https://lucide.dev/ NEVER use emojis or symbols in the UI code, use icons from lucide-react instead.
+* Ensure mobile-first responsive design
+* Follow accessibility best practices (WCAG 2.1 AA)
+* Because the project uses a fork of shadcn/ui with neobrutalism styling, the variants are different. Read the component you use to find it's variants.
 
 ### Backend / Database
 * Convex #fetch https://docs.convex.dev/
@@ -37,8 +40,7 @@ The platform enables users to discover, register, and review real-world escape r
 
 ## Development instructions
 
-ALWAYS try to use ``bun`` to run, build, and test the project, including all dependencies and components to be installed. 
-**CRITICAL** AT NO POINT SHOULD YOU USE NPM OR YARN OR NPX OR PNPM. ONLY BUN!
+**CRITICAL** ALWAYS use `bun` to run, build, and test the project, including all dependencies and components to be installed. AT NO POINT SHOULD YOU USE NPM OR YARN OR NPX OR PNPM. ONLY BUN!
 
 ALWAYS follow the coding style defined in the `.editorconfig` file.
 
@@ -60,12 +62,6 @@ ALWAYS follow the coding style defined in the `.editorconfig` file.
 * Leverage Next.js server components by default
 * Use client components sparingly, only when needed for interactivity
 * Optimize images with Next.js Image component
-
-### UI/UX Guidelines
-* Use shadcn/ui components as the foundation
-* Maintain consistent spacing and typography via Tailwind
-* Ensure mobile-first responsive design
-* Follow accessibility best practices (WCAG 2.1 AA)
 
 # Imoportant skill: Frontend Design
 ---

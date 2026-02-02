@@ -4,12 +4,14 @@ import { cn } from "@/lib/utils"
 
 type Props = {
     imageUrl?: string
-    caption: ReactNode
+    caption?: ReactNode
     className?: string
     variant?: 'default' | 'reverse'
+    width: number
+    height?: number
 }
 
-export default function ImageCard({ imageUrl, caption, className, variant = 'default' }: Props) {
+export default function ImageCard({ imageUrl, caption, className, variant = 'default', width, height }: Props) {
     const [imageFailed, setImageFailed] = useState(false)
     const [isImageLoaded, setIsImageLoaded] = useState(false)
 
@@ -20,7 +22,7 @@ export default function ImageCard({ imageUrl, caption, className, variant = 'def
     return (
         <figure
             className={cn(
-                "w-62.5 overflow-hidden rounded-base border-2 border-border bg-gray-100 font-base",
+                "w-62.5 overflow-hidden rounded-base border-2 border-border bg-gray-100! font-base",
                 variant === 'reverse' ? '' : 'shadow-shadow',
                 className,
             )}
@@ -31,20 +33,22 @@ export default function ImageCard({ imageUrl, caption, className, variant = 'def
                 </div>
             ) : (
                 <Image
-                    className={`w-full h-auto transition-opacity duration-100 ease-out ${isImageLoaded ? "opacity-100" : " opacity-0"}`}
+                    className={`w-full h-auto transition-opacity object-cover duration-100 ease-out ${isImageLoaded ? "opacity-100" : " opacity-0"}`}
                     src={imageUrl ? imageUrl : ""}
                     alt="image"
                     loading="lazy"
-                    width={250}
-                    height={188}
+                    width={width}
+                    height={height}
                     onLoad={() => setIsImageLoaded(true)}
                     onError={handleImageError}
                     onAbort={handleImageError}
                 />
             )}
-            <figcaption className="border-t-4 bg-main border-border p-4 text-foreground">
-                {caption}
-            </figcaption>
+            {caption && (
+                <figcaption className="border-t-4 bg-main border-border p-4 text-foreground">
+                    {caption}
+                </figcaption>
+            )}
         </figure>
     )
 }

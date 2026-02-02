@@ -52,7 +52,7 @@ export function EscapeRoomCard({
                                 <Star11
                                     key={i}
                                     size={16}
-                                    className={i < Math.round(rating) ? "fill-warn text-warn" : "fill-gray-300 text-gray-300"}
+                                    className={i < Math.floor(rating) ? "fill-warn text-warn" : "fill-gray-300 text-gray-300"}
                                 />
                             ))}
                         </div>
@@ -75,6 +75,8 @@ export function EscapeRoomCard({
                     imageUrl={imageUrl}
                     caption={cardContent}
                     variant="reverse"
+                    width={400}
+                    height={300}
                     className="w-full block!"
                 />
             </Button>

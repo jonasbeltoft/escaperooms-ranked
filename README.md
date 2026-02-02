@@ -124,7 +124,7 @@ Room attributes include:
 * Duration
 * Description (typically official description)
 * Tags (e.g. "live actors", "not plus size friendly")
-* One image
+* Images
 
 > **Verification note:** Ownership-based permissions are enforced via Supabase Row Level Security (RLS). Additional verification (e.g. official place claims) is considered a future enhancement.
 

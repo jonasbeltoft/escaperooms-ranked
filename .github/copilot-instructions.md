@@ -5,6 +5,10 @@ The accepted hypocorisms are "ESCRR" and "ER Ranked".
 
 The platform enables users to discover, register, and review real-world escape rooms and track shared experiences with other users.
 
+### Terminology
+* RDP - Room Detail Page - The page for a specific escape room location, showing details, reviews, and user experiences.
+* RLP - Rooms List Page - The page listing multiple escape room locations, with filtering and sorting options.
+
 ### Goals and Principles
 
 * Centralized, non-duplicated registry of real escape room locations

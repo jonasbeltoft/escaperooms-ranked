@@ -18,6 +18,7 @@ export type RoomReview = {
     text: string;
     ratings: RatingBreakdown;
     visitDate: string;
+    images?: string[];
 };
 
 /**
@@ -92,15 +93,4 @@ export type RoomCardData = {
     rating: number;
     reviews: number;
     imageUrl?: string;
-};
-
-/**
- * Review data used in the reviews list and review card components.
- */
-export type Review = {
-    id: string;
-    user: string;
-    text: string;
-    ratings: RatingBreakdown;
-    visitDate?: string;
 };

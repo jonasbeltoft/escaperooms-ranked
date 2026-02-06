@@ -54,6 +54,8 @@ Do not try to use git or other version control commands to display file history 
 
 All types and interfaces should be explicitly defined in TypeScript. NEVER use `any` type. They are defined in `escrr-frontend/types.ts` file. If you add a new type, do it here.
 
+All frontend related commands should be run from the `escrr-frontend` folder.
+
 ### Code Style & Conventions
 * Use TypeScript strict mode
 * Component naming: PascalCase for React components, camelCase for utilities

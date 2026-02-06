@@ -17,7 +17,7 @@ import type { GeoPoint, PopularRoomsMode, PopularRoomsProps, RoomCardData } from
 
 const mockRooms: RoomCardData[] = [
     {
-        id: "bfd3d277-30fa-4cf1-9cff-d20bc9a4111d",
+        id: "c3f9e8a7-4d2b-4f1a-9f3b-2c9e4f1a5b7d",
         name: "The Lost Temple",
         location: "Downtown Manhattan",
         distance: "0.3 miles",
@@ -28,7 +28,7 @@ const mockRooms: RoomCardData[] = [
         imageUrl: "https://placehold.co/400x300/png",
     },
     {
-        id: "a1e5f3c2-9c4b-4d2e-8f3b-2c9e4f1a5b6c",
+        id: "c3f9e8a7-4d2b-4f1a-9f3b-2c9e4f1a5b7d",
         name: "Heist Masterclass",
         location: "SoHo",
         distance: "0.8 miles",
@@ -50,7 +50,7 @@ const mockRooms: RoomCardData[] = [
         imageUrl: "https://placehold.co/400x300/png",
     },
     {
-        id: "d4e6f7a8-5b3c-4d2e-9f4c-3d0e5f2b6c8e",
+        id: "c3f9e8a7-4d2b-4f1a-9f3b-2c9e4f1a5b7d",
         name: "Cyberpunk 2087",
         location: "Midtown",
         distance: "1.5 miles",
@@ -61,7 +61,7 @@ const mockRooms: RoomCardData[] = [
         imageUrl: "https://placehold.co/400x300/png",
     },
     {
-        id: "e5f7a8b9-6c4d-4e3f-9g5d-4e1f6g3c7d9f",
+        id: "c3f9e8a7-4d2b-4f1a-9f3b-2c9e4f1a5b7d",
         name: "Jungle Expedition",
         location: "Hell's Kitchen",
         distance: "1.8 miles",
@@ -72,7 +72,7 @@ const mockRooms: RoomCardData[] = [
         imageUrl: "https://placehold.co/400x300/png",
     },
     {
-        id: "f6g8b9c0-7d5e-4f4g-0h6e-5f2g7h4d8e0g",
+        id: "c3f9e8a7-4d2b-4f1a-9f3b-2c9e4f1a5b7d",
         name: "Sherlock's Study",
         location: "West Village",
         distance: "2.1 miles",
@@ -251,8 +251,8 @@ export function PopularRooms({ mode = 'location', initialLocation = null }: Popu
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {(rooms ?? mockRooms).map((room) => (
-                        <EscapeRoomCard key={room.id} {...room} />
+                    {(rooms ?? mockRooms).map((room, i) => (
+                        <EscapeRoomCard key={room.id + i} {...room} />
                     ))}
                 </div>
             </div>

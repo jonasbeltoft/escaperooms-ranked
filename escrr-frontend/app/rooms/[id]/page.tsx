@@ -46,14 +46,22 @@ const MOCK_ROOMS: Record<string, Room> = {
                 user: 'Alice',
                 text: "I absolutely loved the atmosphere — every detail felt intentional and immersive. The set design, lighting, and soundscapes built a steady sense of tension without ever feeling cheap. The actors and game masters were attentive and helped the flow when we got stuck. This is one of the most atmospheric rooms I've played in a long time, and I'd recommend it to anyone who enjoys detailed storytelling alongside solid puzzles.",
                 ratings: { overall: 5, scary: 4, difficulty: 3, immersion: 5, decoration: 4 },
-                visitDate: '2025-12-01'
+                visitDate: '2025-12-01',
+                images: [
+                    'https://placehold.co/1200x800/png?text=Review+1',
+                    'https://placehold.co/1200x800/png?text=Review+2',
+                    'https://placehold.co/1200x800/png?text=Review+3'
+                ]
             },
             {
                 id: 'r2',
                 user: 'Bob',
                 text: "The puzzles were smart and often required real teamwork, which we enjoyed a lot. A couple of clues felt a touch obscure and pushed the difficulty up more than expected, but solving them produced a great feeling of accomplishment. If you like challenging, brainy rooms that reward persistence, this one is worth the price — just be ready to think laterally at times.",
                 ratings: { overall: 4, scary: 3, difficulty: 4, immersion: 3, decoration: 4 },
-                visitDate: '2026-01-10'
+                visitDate: '2026-01-10',
+                images: [
+                    'https://placehold.co/1200x800/png?text=Review+1'
+                ]
             },
             {
                 id: 'r3',
@@ -67,7 +75,14 @@ const MOCK_ROOMS: Record<string, Room> = {
                 user: 'Diana',
                 text: "Fun and approachable — the room balanced excitement with accessibility, making it great for families and mixed-ability groups. It delivers atmosphere without being overwhelmingly scary, and the puzzles were engaging without being frustrating for younger players. We had a great time together and appreciated that it felt polished and thoughtfully designed for a broad audience.",
                 ratings: { overall: 4, scary: 2, difficulty: 3, immersion: 4, decoration: 4 },
-                visitDate: '2025-10-20'
+                visitDate: '2025-10-20',
+                images: [
+                    'https://placehold.co/1200x800/png?text=Review+1',
+                    'https://placehold.co/1200x800/png?text=Review+2',
+                    'https://placehold.co/1200x800/png?text=Review+3',
+                    'https://placehold.co/1200x800/png?text=Review+4',
+                    'https://placehold.co/1200x800/png?text=Review+5'
+                ]
             },
             {
                 id: 'r5',
@@ -112,7 +127,7 @@ export default function RoomPage() {
         setTimeout(() => {
             setRoom(MOCK_ROOMS[id.toString()] ?? null);
             setLoading(false);
-        }, 500);
+        }, 50);
     }, [id]);
 
     if (loading) {
@@ -230,9 +245,13 @@ export default function RoomPage() {
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
                     <h2 className="text-xl font-bold">Reviews</h2>
                     <div className="grid grid-cols-1 gap-4 mt-4">
-                        {room.reviews.map((r: RoomReview) => (
-                            <ReviewCard key={r.id} review={r} />
-                        ))}
+                        {(!room.reviews || room.reviews.length === 0) ? (
+                            <div>No reviews yet — be the first to add one.</div>
+                        ) : (
+                            room.reviews.map((r: RoomReview) => (
+                                <ReviewCard key={r.id} review={r} />
+                            ))
+                        )}
                     </div>
                 </div>
             </section>

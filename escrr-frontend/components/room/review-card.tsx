@@ -1,13 +1,6 @@
+import { Review } from "@/app/types";
 import Star11 from "@/components/stars/s11";
 import { cn } from "@/lib/utils";
-
-export type Review = {
-    id: string;
-    user: string;
-    text: string;
-    ratings: { overall: number; scary: number; difficulty: number; immersion?: number; decoration: number };
-    visitDate?: string;
-};
 
 type ReviewCardProps = {
     review: Review;

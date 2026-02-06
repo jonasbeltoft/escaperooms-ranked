@@ -1,20 +1,19 @@
 "use client"
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import ImageGallery from '@/components/room/image-gallery';
-import RatingSummary from '@/components/room/rating-summary';
-import ReviewsList from '@/components/room/reviews-list';
+import ImageGallery from "@/components/room/image-gallery";
+import RatingSummary from "@/components/room/rating-summary";
 import { LoadingSpinner } from "@/components/loading-spinner";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { RoomTag } from '@/components/room/room-tag';
-import { RoomLocationCard } from '@/components/room/room-location-card';
+import { RoomTag } from "@/components/room/room-tag";
+import { RoomLocationCard } from "@/components/room/room-location-card";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowUpRight, BicepsFlexed, Clock, ShieldCheck, Users } from "lucide-react";
 import ReviewCard from "@/components/room/review-card";
-import { url } from "inspector";
+import type { Room, RoomReview } from "@/app/types";
 
-const MOCK_ROOMS: Record<string, any> = {
+const MOCK_ROOMS: Record<string, Room> = {
     'c3f9e8a7-4d2b-4f1a-9f3b-2c9e4f1a5b7d': {
         id: 'c3f9e8a7-4d2b-4f1a-9f3b-2c9e4f1a5b7d',
         name: 'Mystery Manor',
@@ -103,8 +102,8 @@ const MOCK_ROOMS: Record<string, any> = {
 };
 
 export default function RoomPage() {
-    const { id } = useParams();
-    const [room, setRoom] = useState<any | null>(null);
+    const { id } = useParams<{ id: string }>();
+    const [room, setRoom] = useState<Room | null>(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -116,11 +115,11 @@ export default function RoomPage() {
         }, 500);
     }, [id]);
 
-    if (!room && loading) {
-        return (
-            LoadingSpinner()
-        );
-    } else if (!room && !loading) {
+    if (loading) {
+        return LoadingSpinner();
+    }
+
+    if (!room) {
         return (
             <main className="min-h-[calc(100dvh-76px)] flex items-center justify-center p-6">
                 <div className="max-w-lg w-full text-center bg-secondary-background border-2 border-border rounded-base p-8 shadow-shadow">
@@ -134,7 +133,9 @@ export default function RoomPage() {
                 </div>
             </main>
         );
-    } else return (
+    }
+
+    return (
         <main className="bg-lattice" style={{ backgroundSize: '90px 90px' }}>
             <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
                 <Card className="bg-main py-4 px-6">
@@ -173,7 +174,7 @@ export default function RoomPage() {
                             <CardContent>
                                 <p className="text-sm">{room.description}</p>
                                 <div className="mt-3 flex gap-2">
-                                    {room.tags.map((t: string) => (
+                                    {room.tags.map((t) => (
                                         <RoomTag key={t} label={t} />
                                     ))}
                                 </div>
@@ -229,7 +230,7 @@ export default function RoomPage() {
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
                     <h2 className="text-xl font-bold">Reviews</h2>
                     <div className="grid grid-cols-1 gap-4 mt-4">
-                        {room.reviews.map((r: any) => (
+                        {room.reviews.map((r: RoomReview) => (
                             <ReviewCard key={r.id} review={r} />
                         ))}
                     </div>

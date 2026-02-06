@@ -3,18 +3,9 @@ import Link from "next/link";
 import { Clock, MapPin } from "lucide-react";
 import Star11 from "./stars/s11";
 import { Button } from "./ui/button";
+import type { RoomCardData } from "@/app/types";
 
-interface EscapeRoomCardProps {
-    id: string;
-    name: string;
-    location: string;
-    distance: string;
-    duration: string;
-    difficulty: string;
-    rating: number;
-    reviews: number;
-    imageUrl?: string;
-}
+type EscapeRoomCardProps = RoomCardData;
 
 export function EscapeRoomCard({
     id,

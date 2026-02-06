@@ -1,4 +1,5 @@
-import ReviewCard, { type Review } from "@/components/room/review-card";
+import { Review } from "@/app/types";
+import ReviewCard from "@/components/room/review-card";
 
 export default function ReviewsList({ reviews }: { reviews?: Review[] }) {
     if (!reviews || reviews.length === 0) {

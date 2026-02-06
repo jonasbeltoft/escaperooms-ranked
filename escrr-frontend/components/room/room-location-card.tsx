@@ -1,18 +1,7 @@
 import Link from "next/link"
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-
-export interface RoomLocation {
-    address: string
-    city: string
-    lat: number
-    lng: number
-}
-
-export interface RoomOwner {
-    name: string
-    url: string
-}
+import type { RoomLocation, RoomOwner } from "@/app/types"
 
 interface RoomLocationCardProps {
     location: RoomLocation

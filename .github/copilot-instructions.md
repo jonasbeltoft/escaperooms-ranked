@@ -52,6 +52,8 @@ Avoid creating or executing shell commands just to display file contents; rely o
 
 Do not try to use git or other version control commands to display file history or changes. The user can see the file history and changes in their editor, so rely on that instead of trying to duplicate it. You only write code and plan changes for the developer, not control the project.
 
+All types and interfaces should be explicitly defined in TypeScript. NEVER use `any` type. They are defined in `escrr-frontend/types.ts` file. If you add a new type, do it here.
+
 ### Code Style & Conventions
 * Use TypeScript strict mode
 * Component naming: PascalCase for React components, camelCase for utilities

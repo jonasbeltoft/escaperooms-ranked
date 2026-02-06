@@ -6,16 +6,11 @@ import { CardRef, CardHeader, CardTitle, CardDescription, CardAction, CardConten
 import Star11 from "../stars/s11";
 import { BicepsFlexed, Ghost, Info, Palette, Spotlight } from "lucide-react";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "../ui/hover-card";
+import { RatingBreakdown } from "@/app/types";
 
 type RatingSummaryProps = {
     className?: string;
-    ratings: {
-        scary?: number;
-        difficulty?: number;
-        immersion?: number;
-        decoration?: number;
-        overall?: number;
-    };
+    ratings: RatingBreakdown
     reviewsCount?: number;
 };
 

@@ -13,8 +13,9 @@ import {
     DropdownMenuSeparator,
 } from '@/components/ui/dropdown-menu';
 import { Input } from "./ui/input";
+import type { GeoPoint, PopularRoomsMode, PopularRoomsProps, RoomCardData } from "@/app/types";
 
-const mockRooms = [
+const mockRooms: RoomCardData[] = [
     {
         id: "bfd3d277-30fa-4cf1-9cff-d20bc9a4111d",
         name: "The Lost Temple",
@@ -83,21 +84,12 @@ const mockRooms = [
     },
 ];
 
-export type PopularRoomsMode = 'global' | 'location';
-
-export type GeoPoint = { lat: number; lng: number };
-
-export type PopularRoomsProps = {
-    mode?: PopularRoomsMode; // default view mode
-    initialLocation?: GeoPoint | null; // optional initial manual location
-};
-
 export function PopularRooms({ mode = 'location', initialLocation = null }: PopularRoomsProps) {
     const [viewMode, setViewMode] = useState<PopularRoomsMode>(mode);
     const [locationGranted, setLocationGranted] = useState(false);
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [showMapPicker, setShowMapPicker] = useState(false);
-    const [rooms, setRooms] = useState(() => mockRooms);
+    const [rooms, setRooms] = useState<RoomCardData[]>(() => mockRooms);
     const [loading, setLoading] = useState(false);
     const [manualLocation, setManualLocation] = useState<GeoPoint | null>(initialLocation);
 
@@ -182,7 +174,7 @@ export function PopularRooms({ mode = 'location', initialLocation = null }: Popu
      * - If `options.mode === 'global'` fetch global top rooms.
      * - If `options.mode === 'location'` use `options.geo` to fetch nearby rooms.
      */
-    async function fetchRooms(options: { mode: PopularRoomsMode; geo?: GeoPoint | null }) {
+    async function fetchRooms(options: { mode: PopularRoomsMode; geo?: GeoPoint | null }): Promise<RoomCardData[]> {
         // TODO: implement real fetching logic here.
         // Example signatures you might use later:
         // fetch(`/api/rooms/top`)
@@ -222,7 +214,7 @@ export function PopularRooms({ mode = 'location', initialLocation = null }: Popu
                                             <MapPin size={16} />
                                             Near Me
                                         </DropdownMenuItem>
-                                        <DropdownMenuItem onSelect={(e: any) => { e.preventDefault?.(); setShowMapPicker(true); setDropdownOpen(true); }}>
+                                        <DropdownMenuItem onSelect={(event: Event) => { event.preventDefault(); setShowMapPicker(true); setDropdownOpen(true); }}>
                                             <Map size={16} />
                                             Choose on map
                                         </DropdownMenuItem>

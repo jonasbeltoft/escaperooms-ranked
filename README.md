@@ -143,7 +143,7 @@ Users can rate rooms on multiple scales:
 
 * Scary
 * Difficulty
-* Roleplay
+* Immersion
 * Overall
 
 Each rating is tied to a **Visit / Run**, not just the room.

@@ -28,18 +28,18 @@ export function RoomLocationCard({
     const src = `https://maps.google.com/maps?q=${location.address}&z=12&output=embed`
 
     return (
-        <Card className={`bg-secondary-background ${className}`}>
+        <Card className={`bg-secondary-background gap-2 ${className}`}>
             <CardHeader>
                 <CardTitle>
                     Location
                 </CardTitle>
             </CardHeader>
-            <CardContent className="space-y-4">
+            <CardContent className="flex h-full flex-col gap-4">
                 <div className="space-y-1 text-sm">
                     <p className="text-base font-semibold">{location.address}</p>
                     <p className="text-foreground/70">{location.city}</p>
                 </div>
-                <div className="relative h-48 overflow-hidden rounded-xl border border-border bg-black/10">
+                <div className="relative min-h-40 flex-1 overflow-hidden rounded-xl border border-border bg-black/10">
                     <iframe
                         src={src}
                         className="absolute inset-0 h-full w-full border-0"

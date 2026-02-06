@@ -24,7 +24,7 @@ const mockRooms = [
         difficulty: "Medium",
         rating: 4.8,
         reviews: 124,
-        imageUrl: "https://picsum.photos/400/300",
+        imageUrl: "https://placehold.co/400x300/png",
     },
     {
         id: "a1e5f3c2-9c4b-4d2e-8f3b-2c9e4f1a5b6c",
@@ -35,7 +35,7 @@ const mockRooms = [
         difficulty: "Hard",
         rating: 4.9,
         reviews: 256,
-        imageUrl: "https://picsum.photos/400/300",
+        imageUrl: "https://placehold.co/400x300/png",
     },
     {
         id: "c3f9e8a7-4d2b-4f1a-9f3b-2c9e4f1a5b7d",
@@ -46,7 +46,7 @@ const mockRooms = [
         difficulty: "Easy",
         rating: 4.5,
         reviews: 89,
-        imageUrl: "https://picsum.photos/400/300",
+        imageUrl: "https://placehold.co/400x300/png",
     },
     {
         id: "d4e6f7a8-5b3c-4d2e-9f4c-3d0e5f2b6c8e",
@@ -57,7 +57,7 @@ const mockRooms = [
         difficulty: "Hard",
         rating: 4.7,
         reviews: 167,
-        imageUrl: "https://picsum.photos/400/300",
+        imageUrl: "https://placehold.co/400x300/png",
     },
     {
         id: "e5f7a8b9-6c4d-4e3f-9g5d-4e1f6g3c7d9f",
@@ -68,7 +68,7 @@ const mockRooms = [
         difficulty: "Medium",
         rating: 4.6,
         reviews: 143,
-        imageUrl: "https://picsum.photos/400/300",
+        imageUrl: "https://placehold.co/400x300/png",
     },
     {
         id: "f6g8b9c0-7d5e-4f4g-0h6e-5f2g7h4d8e0g",
@@ -79,7 +79,7 @@ const mockRooms = [
         difficulty: "Medium",
         rating: 4.4,
         reviews: 98,
-        imageUrl: "https://picsum.photos/400/300",
+        imageUrl: "https://placehold.co/400x300/png",
     },
 ];
 

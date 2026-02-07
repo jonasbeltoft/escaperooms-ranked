@@ -1,10 +1,6 @@
-"use client"
-import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
+import { notFound } from "next/navigation";
 import ImageGallery from "@/components/room/image-gallery";
 import RatingSummary from "@/components/room/rating-summary";
-import { LoadingSpinner } from "@/components/loading-spinner";
-import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { RoomTag } from "@/components/room/room-tag";
 import { RoomLocationCard } from "@/components/room/room-location-card";
@@ -12,6 +8,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowUpRight, BicepsFlexed, Clock, ShieldCheck, Users } from "lucide-react";
 import ReviewCard from "@/components/room/review-card";
 import type { Room, RoomReview } from "@/app/types";
+import { Suspense } from "react";
+import Loading from "./loading";
 
 const MOCK_ROOMS: Record<string, Room> = {
     'c3f9e8a7-4d2b-4f1a-9f3b-2c9e4f1a5b7d': {
@@ -116,38 +114,24 @@ const MOCK_ROOMS: Record<string, Room> = {
     },
 };
 
-export default function RoomPage() {
-    const { id } = useParams<{ id: string }>();
-    const [room, setRoom] = useState<Room | null>(null);
-    const [loading, setLoading] = useState(true);
+/**
+ * Room detail page.
+ */
+export default function RoomPage({ params }: PageProps<'/rooms/[id]'>) {
+    return (
+        <Suspense fallback={<Loading />}>
+            {params.then(({ id }) => (
+                <Content id={id} />
+            ))}
+        </Suspense>
+    )
+}
 
-    useEffect(() => {
-        if (!id) return;
-        // Simulate fetching room data
-        setTimeout(() => {
-            setRoom(MOCK_ROOMS[id.toString()] ?? null);
-            setLoading(false);
-        }, 50);
-    }, [id]);
-
-    if (loading) {
-        return LoadingSpinner();
-    }
-
+async function Content({ id }: { id: string }) {
+    await new Promise((resolve) => setTimeout(resolve, 50));
+    const room = MOCK_ROOMS[id] ?? null;
     if (!room) {
-        return (
-            <main className="min-h-[calc(100dvh-76px)] flex items-center justify-center p-6">
-                <div className="max-w-lg w-full text-center bg-secondary-background border-2 border-border rounded-base p-8 shadow-shadow">
-                    <h1 className="text-4xl font-black">Room not found</h1>
-                    <p className="mt-3 text-sm text-foreground/70">We couldn't find the room you're looking for. It may have been removed or the link is incorrect.</p>
-                    <div className="mt-6 flex justify-center">
-                        <Link href="/" tabIndex={-1}>
-                            <Button>Back</Button>
-                        </Link>
-                    </div>
-                </div>
-            </main>
-        );
+        notFound();
     }
 
     return (

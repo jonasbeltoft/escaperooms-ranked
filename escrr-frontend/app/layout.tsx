@@ -3,6 +3,7 @@ import { DM_Sans } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import "./globals.css";
 import { Header } from "@/components/header";
+import ScrollToTop from "@/components/scroll-to-top";
 
 const dm_sans = DM_Sans({ subsets: ['latin'], variable: '--font-sans' });
 
@@ -21,6 +22,7 @@ export default function RootLayout({
             <html lang="en" className={`${dm_sans.variable} scroll-smooth`}>
                 <body className="antialiased">
                     <Header />
+                    <ScrollToTop />
                     {children}
                 </body>
             </html>

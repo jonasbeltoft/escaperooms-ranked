@@ -1,19 +1,14 @@
 import ImageCard from "@/components/ui/image-card";
+import Link from "next/link";
 import { Clock, MapPin } from "lucide-react";
 import Star11 from "./stars/s11";
+import { Button } from "./ui/button";
+import type { RoomCardData } from "@/app/types";
 
-interface EscapeRoomCardProps {
-    name: string;
-    location: string;
-    distance: string;
-    duration: string;
-    difficulty: string;
-    rating: number;
-    reviews: number;
-    imageUrl?: string;
-}
+type EscapeRoomCardProps = RoomCardData;
 
 export function EscapeRoomCard({
+    id,
     name,
     location,
     distance,
@@ -36,7 +31,7 @@ export function EscapeRoomCard({
                     <span className="font-semibold">{duration}</span>
                 </div>
             </div>
-            <div className="flex justify-between items-center pt-2">
+            <div className="flex justify-between items-center">
                 <div>
                     <div className="flex flex-col gap-1 mb-1">
                         <div className="flex items-center gap-1">
@@ -48,15 +43,15 @@ export function EscapeRoomCard({
                                 <Star11
                                     key={i}
                                     size={16}
-                                    className={i < Math.round(rating) ? "fill-warn text-warn" : "fill-gray-300 text-gray-300"}
+                                    className={i < Math.floor(rating) ? "fill-warn text-warn" : "fill-gray-300 text-gray-300"}
                                 />
                             ))}
                         </div>
                     </div>
                     <span className="text-xs font-bold text-gray-700">{distance} away</span>
                 </div>
-                <div className="text-right">
-                    <div className="inline-block px-2 py-1 border-2 border-black font-bold text-xs">
+                <div className="text-right self-end bg-background">
+                    <div className="inline-block px-2 py-1 border-2 border-black font-bold text-sm">
                         {difficulty}
                     </div>
                 </div>
@@ -65,18 +60,17 @@ export function EscapeRoomCard({
     );
 
     return (
-        <div>
-            {imageUrl ? (
+        <Link href={`/rooms/${id}`} className="ring-offset-white transition-all gap-2 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2">
+            <Button asChild={true} variant="reverse" size="undefined">
                 <ImageCard
                     imageUrl={imageUrl}
                     caption={cardContent}
-                    className="w-full"
+                    variant="reverse"
+                    width={400}
+                    height={300}
+                    className="w-full block!"
                 />
-            ) : (
-                <div className="w-full rounded-base border-2 border-border bg-gray-100 shadow-shadow aspect-4/3 flex items-center justify-center">
-                    <span className="text-gray-500 font-bold text-center px-4">No image available</span>
-                </div>
-            )}
-        </div>
+            </Button>
+        </Link>
     );
 }

@@ -7,13 +7,29 @@ function Card({ className, ...props }: React.ComponentProps<"div">) {
         <div
             data-slot="card"
             className={cn(
-                "rounded-base flex flex-col shadow-shadow border-2 gap-6 py-6 border-border bg-background text-foreground font-base",
+                "rounded-base flex flex-col shadow-shadow border-2 gap-4 py-6 border-border bg-background text-foreground font-base",
                 className,
             )}
             {...props}
         />
     )
 }
+
+const CardRef = React.forwardRef<HTMLDivElement, React.ComponentProps<"div">>(
+    ({ className, ...props }, ref) => (
+        <div
+            ref={ref}
+            data-slot="card"
+            className={cn(
+                "rounded-base flex flex-col shadow-shadow border-2 gap-4 py-6 border-border bg-background text-foreground font-base",
+                className,
+            )}
+            {...props}
+        />
+    ),
+)
+
+CardRef.displayName = "CardRef"
 
 function CardHeader({ className, ...props }: React.ComponentProps<"div">) {
     return (
@@ -32,7 +48,7 @@ function CardTitle({ className, ...props }: React.ComponentProps<"div">) {
     return (
         <div
             data-slot="card-title"
-            className={cn("font-heading leading-none", className)}
+            className={cn("font-heading leading-none text-xl", className)}
             {...props}
         />
     )
@@ -83,6 +99,7 @@ function CardFooter({ className, ...props }: React.ComponentProps<"div">) {
 
 export {
     Card,
+    CardRef,
     CardHeader,
     CardFooter,
     CardTitle,

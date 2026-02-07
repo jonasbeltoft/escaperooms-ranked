@@ -40,6 +40,11 @@
     --chart-active-dot: #fff;
 }
 
+.bg-lattice {
+    background-image: linear-gradient(to right, #8080804D 1px, transparent 1px), linear-gradient(to bottom, #80808090 1px, transparent 1px);
+    background-size: 40px 40px;
+}
+
 @theme inline {
     --color-main: var(--main);
     --color-background: var(--background);

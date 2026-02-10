@@ -151,12 +151,11 @@ async function Content({ id }: { id: string }) {
                         </Link>
                     </div>
                 </Card>
+                <div className="w-full border-b-4 my-4"></div>
                 <div className="grid lg:grid-cols-3 sm:gap-6 ">
                     <div className="lg:col-span-2 ">
                         {room.images.length > 0 && (
-                            <div className="mt-4">
-                                <ImageGallery images={room.images} />
-                            </div>
+                            <ImageGallery images={room.images} />
                         )}
                         <Card className="mt-4 bg-main gap-2">
                             <CardHeader>
@@ -180,12 +179,20 @@ async function Content({ id }: { id: string }) {
                             </CardContent>
                         </Card>
                     </div>
-                    <aside className="flex flex-col sm:flex-row lg:flex-col gap-4 mt-4 self-start">
+                    <aside className="flex flex-col sm:flex-row lg:flex-col gap-4 self-start">
                         <div className="flex flex-col gap-4 flex-1">
                             <RatingSummary className="flex-2" ratings={room.ratings} reviewsCount={room.reviews.length} />
                             <Card className="flex-1 bg-secondary-background">
                                 <CardHeader>
-                                    <CardTitle>Details</CardTitle>
+                                    <CardTitle><Link
+                                        href={room.url}
+                                        className="inline-flex items-center gap-1"
+                                        target="_blank"
+                                        rel="noreferrer"
+                                    >
+                                        Official details
+                                        <ArrowUpRight className="h-5 w-5" />
+                                    </Link></CardTitle>
                                 </CardHeader>
                                 <CardContent className="text-sm">
                                     <div className="flex items-center justify-between border-b">

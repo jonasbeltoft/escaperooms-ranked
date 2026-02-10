@@ -141,23 +141,28 @@ export function PopularRooms({ mode = 'location', initialLocation = null }: Popu
                 const data = await fetchRooms({ mode: 'global' });
                 setRooms(data);
             } else {
-                // location mode: prefer manualLocation, otherwise try to request browser location
+                // location mode: prefer manualLocation, otherwise use browser location only if already granted
                 if (manualLocation) {
                     const data = await fetchRooms({ mode: 'location', geo: manualLocation });
                     setRooms(data);
-                } else if (navigator.geolocation) {
-                    navigator.geolocation.getCurrentPosition(async (position) => {
-                        const coords: GeoPoint = { lat: position.coords.latitude, lng: position.coords.longitude };
-                        setLocationGranted(true);
-                        setManualLocation(coords);
-                        const data = await fetchRooms({ mode: 'location', geo: coords });
-                        setRooms(data);
-                    }, async (err) => {
-                        console.warn('Geolocation error:', err);
-                        // fallback
+                } else if (navigator.geolocation && navigator.permissions) {
+                    const permission = await navigator.permissions.query({ name: 'geolocation' });
+                    if (permission.state === 'granted') {
+                        navigator.geolocation.getCurrentPosition(async (position) => {
+                            const coords: GeoPoint = { lat: position.coords.latitude, lng: position.coords.longitude };
+                            setLocationGranted(true);
+                            setManualLocation(coords);
+                            const data = await fetchRooms({ mode: 'location', geo: coords });
+                            setRooms(data);
+                        }, async (err) => {
+                            console.warn('Geolocation error:', err);
+                            const data = await fetchRooms({ mode: 'global' });
+                            setRooms(data);
+                        });
+                    } else {
                         const data = await fetchRooms({ mode: 'global' });
                         setRooms(data);
-                    });
+                    }
                 } else {
                     const data = await fetchRooms({ mode: 'global' });
                     setRooms(data);
@@ -192,63 +197,114 @@ export function PopularRooms({ mode = 'location', initialLocation = null }: Popu
                         {manualLocation ? 'Popular Nearby' : 'Global Top Rooms'}
                     </h2>
 
-                    {/* Location Button (persistent) */}
+                    {/* Location controls (dropdown on mobile, buttons on larger screens) */}
                     <div className="relative">
-                        <DropdownMenu open={dropdownOpen} onOpenChange={setDropdownOpen}>
-                            <DropdownMenuTrigger asChild>
-                                <Button
-                                    variant="default"
-                                    size="icon"
-                                    aria-label="Select location for popular rooms"
-                                >
-                                    <MapPin size={20} />
-                                </Button>
-                            </DropdownMenuTrigger>
+                        <div className="sm:hidden">
+                            <DropdownMenu open={dropdownOpen} onOpenChange={setDropdownOpen}>
+                                <DropdownMenuTrigger asChild>
+                                    <Button
+                                        variant="default"
+                                        size="icon"
+                                        aria-label="Select location for popular rooms"
+                                    >
+                                        <MapPin size={20} />
+                                    </Button>
+                                </DropdownMenuTrigger>
 
-                            <DropdownMenuContent sideOffset={8} align="end" className="w-56">
-                                {!showMapPicker ? (
-                                    <>
-                                        <DropdownMenuLabel>Choose Rooms</DropdownMenuLabel>
-                                        <DropdownMenuSeparator />
-                                        <DropdownMenuItem onSelect={async () => { setViewMode('location'); requestLocation(); setDropdownOpen(false); }}>
-                                            <MapPin size={16} />
-                                            Near Me
-                                        </DropdownMenuItem>
-                                        <DropdownMenuItem onSelect={(event: Event) => { event.preventDefault(); setShowMapPicker(true); setDropdownOpen(true); }}>
-                                            <Map size={16} />
-                                            Choose on map
-                                        </DropdownMenuItem>
-                                        <DropdownMenuItem onSelect={async () => { setViewMode('global'); setManualLocation(null); await loadRooms(); setDropdownOpen(false); }}>
-                                            <Globe size={16} />
-                                            Global Top
-                                        </DropdownMenuItem>
-                                    </>
-                                ) : (
-                                    <div className="px-2 py-2">
-                                        <label className="text-sm">Manual location</label>
-                                        <Input
-                                            aria-label="lat"
-                                            placeholder="lat"
-                                            value={manualLocation?.lat ?? ''}
-                                            onChange={(e) => setManualLocation(prev => ({ ...(prev ?? { lat: 0, lng: 0 }), lat: Number(e.target.value) }))}
-                                        />
-                                        <Input
-                                            aria-label="lng"
-                                            placeholder="lng"
-                                            className="mt-1"
-                                            value={manualLocation?.lng ?? ''}
-                                            onChange={(e) => setManualLocation(prev => ({ ...(prev ?? { lat: 0, lng: 0 }), lng: Number(e.target.value) }))}
-                                        />
-                                        <div className="flex gap-2 mt-2">
-                                            <Button size="sm" onClick={async () => { setViewMode('location'); await loadRooms(); setDropdownOpen(false); setShowMapPicker(false); }}>Set location</Button>
-                                            <Button size="sm" variant="default" onClick={() => { setShowMapPicker(false); }}>Back</Button>
+                                <DropdownMenuContent sideOffset={8} align="end" className="w-56">
+                                    {!showMapPicker ? (
+                                        <>
+                                            <DropdownMenuLabel>Choose Rooms</DropdownMenuLabel>
+                                            <DropdownMenuSeparator />
+                                            <DropdownMenuItem onSelect={async () => { setViewMode('location'); requestLocation(); setDropdownOpen(false); }}>
+                                                <MapPin size={16} />
+                                                Near Me
+                                            </DropdownMenuItem>
+                                            <DropdownMenuItem onSelect={(event: Event) => { event.preventDefault(); setShowMapPicker(true); setDropdownOpen(true); }}>
+                                                <Map size={16} />
+                                                Choose on map
+                                            </DropdownMenuItem>
+                                            <DropdownMenuItem onSelect={async () => { setViewMode('global'); setManualLocation(null); await loadRooms(); setDropdownOpen(false); }}>
+                                                <Globe size={16} />
+                                                Global Top
+                                            </DropdownMenuItem>
+                                        </>
+                                    ) : (
+                                        <div className="px-2 py-2">
+                                            <label className="text-sm">Manual location</label>
+                                            <Input
+                                                aria-label="lat"
+                                                placeholder="lat"
+                                                value={manualLocation?.lat ?? ''}
+                                                onChange={(e) => setManualLocation(prev => ({ ...(prev ?? { lat: 0, lng: 0 }), lat: Number(e.target.value) }))}
+                                            />
+                                            <Input
+                                                aria-label="lng"
+                                                placeholder="lng"
+                                                className="mt-1"
+                                                value={manualLocation?.lng ?? ''}
+                                                onChange={(e) => setManualLocation(prev => ({ ...(prev ?? { lat: 0, lng: 0 }), lng: Number(e.target.value) }))}
+                                            />
+                                            <div className="flex gap-2 mt-2">
+                                                <Button size="sm" onClick={async () => { setViewMode('location'); await loadRooms(); setDropdownOpen(false); setShowMapPicker(false); }}>Set location</Button>
+                                                <Button size="sm" variant="default" onClick={() => { setShowMapPicker(false); }}>Back</Button>
+                                            </div>
                                         </div>
-                                    </div>
-                                )}
-                            </DropdownMenuContent>
-                        </DropdownMenu>
+                                    )}
+                                </DropdownMenuContent>
+                            </DropdownMenu>
+                        </div>
+
+                        <div className="hidden sm:flex items-center gap-2">
+                            <Button
+                                variant="default"
+                                onClick={() => { setShowMapPicker(false); setViewMode('location'); requestLocation(); }}
+                            >
+                                <MapPin size={16} />
+                                Near Me
+                            </Button>
+                            <Button
+                                variant="default"
+                                onClick={() => { setShowMapPicker(true); }}
+                            >
+                                <Map size={16} />
+                                Choose on map
+                            </Button>
+                            <Button
+                                variant="default"
+                                onClick={async () => { setShowMapPicker(false); setViewMode('global'); setManualLocation(null); await loadRooms(); }}
+                            >
+                                <Globe size={16} />
+                                Global Top
+                            </Button>
+                        </div>
                     </div>
                 </div>
+
+                {showMapPicker && (
+                    <div className="hidden sm:block mb-8 max-w-md">
+                        <div className="rounded-base border-2 border-border bg-white p-3">
+                            <label className="text-sm">Manual location</label>
+                            <Input
+                                aria-label="lat"
+                                placeholder="lat"
+                                value={manualLocation?.lat ?? ''}
+                                onChange={(e) => setManualLocation(prev => ({ ...(prev ?? { lat: 0, lng: 0 }), lat: Number(e.target.value) }))}
+                            />
+                            <Input
+                                aria-label="lng"
+                                placeholder="lng"
+                                className="mt-1"
+                                value={manualLocation?.lng ?? ''}
+                                onChange={(e) => setManualLocation(prev => ({ ...(prev ?? { lat: 0, lng: 0 }), lng: Number(e.target.value) }))}
+                            />
+                            <div className="flex gap-2 mt-2">
+                                <Button size="sm" onClick={async () => { setViewMode('location'); await loadRooms(); setShowMapPicker(false); }}>Set location</Button>
+                                <Button size="sm" variant="default" onClick={() => { setShowMapPicker(false); }}>Back</Button>
+                            </div>
+                        </div>
+                    </div>
+                )}
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {(rooms ?? mockRooms).map((room, i) => (

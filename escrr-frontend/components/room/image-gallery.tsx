@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState } from "react";
 import Image from "next/image";
 
 type ImageGalleryProps = {
@@ -11,7 +11,7 @@ export default function ImageGallery({ images = [] }: ImageGalleryProps) {
     const [selectedIndex, setSelectedIndex] = useState(0);
     if (!images.length) {
         return (
-            <div className="w-full h-49 bg-gray-100 flex items-center justify-center rounded-base border-2 border-border">
+            <div className="w-full h-10 sm:h-49 bg-gray-100 flex items-center justify-center rounded-base border-2 border-border">
                 <span className="text-gray-500">No images available</span>
             </div>
         );
@@ -36,7 +36,7 @@ export default function ImageGallery({ images = [] }: ImageGalleryProps) {
                                 }
                             }}
                             aria-current={isSelected}
-                            className={`aspect-4/3 rounded-base overflow-hidden border-2 border-border focus:outline-none cursor-pointer`}
+                            className="aspect-4/3 min-h-18 rounded-base overflow-hidden border-2 border-border cursor-pointer"
                         >
                             <Image src={isSelected ? images[0] : src} alt={`thumb-${idx}`} width={400} height={300} className="w-full h-full object-cover object-center" />
                         </button>

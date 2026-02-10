@@ -9,8 +9,8 @@
 - [x] Make fake reviews with more text. some people write a lot.
 - [-] The "Roleplay" rating needs to only show if there is live actors.
   - Changed to be a tag only
-- [ ] On the Rooms list page (RLP) the location button should be just 3 buttons instead of a dropdown of 3 options.
-- [ ] Make it more clear that details are the owners claims about the room
+- [x] On the Rooms list page (RLP) the location button should be just 3 buttons instead of a dropdown of 3 options.
+- [x] Make it more clear that details are the owners claims about the room
 
 ## Future
 - [ ] Add Convex

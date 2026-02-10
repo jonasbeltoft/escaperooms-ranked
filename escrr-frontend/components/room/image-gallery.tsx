@@ -36,7 +36,7 @@ export default function ImageGallery({ images = [] }: ImageGalleryProps) {
                                 }
                             }}
                             aria-current={isSelected}
-                            className="aspect-4/3 min-h-18 rounded-base overflow-hidden border-2 border-border cursor-pointer"
+                            className="aspect-4/3 min-h-28 rounded-base overflow-hidden border-2 border-border cursor-pointer"
                         >
                             <Image src={isSelected ? images[0] : src} alt={`thumb-${idx}`} width={400} height={300} className="w-full h-full object-cover object-center" />
                         </button>

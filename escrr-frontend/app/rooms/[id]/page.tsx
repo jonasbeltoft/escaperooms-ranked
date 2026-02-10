@@ -152,7 +152,7 @@ async function Content({ id }: { id: string }) {
                     </div>
                 </Card>
                 <div className="w-full border-b-4 my-4"></div>
-                <div className="grid lg:grid-cols-3 sm:gap-6 ">
+                <div className="grid lg:grid-cols-3 gap-4 sm:gap-6 ">
                     <div className="lg:col-span-2 ">
                         {room.images.length > 0 && (
                             <ImageGallery images={room.images} />

@@ -19,9 +19,8 @@ export default function Loading() {
                         <div className="mt-4">
                             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                                 <div className="flex flex-row gap-4 sm:flex-col">
-
-                                    <Skeleton className="aspect-4/3 h-56" />
-                                    <Skeleton className="aspect-4/3 h-56" />
+                                    <Skeleton className="aspect-4/3 w-full flex-1 min-w-0 min-h-28" />
+                                    <Skeleton className="aspect-4/3 w-full flex-1 min-w-0 min-h-28" />
                                 </div>
                                 <div className="aspect-3/2 sm:aspect-auto col-span-1 sm:col-span-2 rounded-base overflow-hidden border-2 border-border">
                                     <Skeleton className="h-full w-full" />

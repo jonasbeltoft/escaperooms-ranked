@@ -118,15 +118,13 @@ const MOCK_ROOMS: Record<string, Room> = {
  * Room detail page.
  */
 export default function RoomPage({ params }: PageProps<'/rooms/[id]'>) {
-
-    return <Loading />;
-    /* return (
+    return (
         <Suspense fallback={<Loading />}>
             {params.then(({ id }) => (
                 <Content id={id} />
             ))}
         </Suspense>
-    ) */
+    )
 }
 
 async function Content({ id }: { id: string }) {
